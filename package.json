@@ -1,36 +1,45 @@
 {
-  "name": "readmefy",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "dev:host": "vite --host",
-    "build": "tsc && vite build",
-    "lint": "eslint src --ext .ts,.tsx && prettier --check './src/**/*.{ts,tsx,css}'",
-    "preview": "vite preview",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix && prettier --write './src/**/*.{ts,tsx,css}'"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@rocketseat/eslint-config": "^1.2.0",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "@vitejs/plugin-react": "^4.0.0",
-    "autoprefixer": "^10.4.14",
-    "eslint": "^8.41.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.3.4",
-    "postcss": "^8.4.24",
-    "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0",
-    "tailwindcss": "^3.3.2",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.2"
-  }
+    "name": "readmefy",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "dev:host": "vite --host",
+        "build": "tsc && vite build",
+        "lint": "eslint src --ext .ts,.tsx && prettier --check './src/**/*.{ts,tsx,css}'",
+        "preview": "vite preview",
+        "lint:fix": "eslint src --ext .ts,.tsx --fix && prettier --write './src/**/*.{ts,tsx,css}'",
+        "prepare": "husky install",
+        "pre-commit": "lint-staged"
+    },
+    "lint-staged": {
+        "src/**/*.{ts,tsx,css}": [
+            "npm run lint:fix"
+        ]
+    },
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@rocketseat/eslint-config": "^1.2.0",
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.11",
+        "@typescript-eslint/eslint-plugin": "^5.57.1",
+        "@typescript-eslint/parser": "^5.57.1",
+        "@vitejs/plugin-react": "^4.0.0",
+        "autoprefixer": "^10.4.14",
+        "eslint": "^8.41.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.3.4",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.2.2",
+        "postcss": "^8.4.24",
+        "prettier": "^2.8.8",
+        "prettier-plugin-tailwindcss": "^0.3.0",
+        "tailwindcss": "^3.3.2",
+        "typescript": "^5.0.2",
+        "vite": "^4.3.2"
+    }
 }
