@@ -18,18 +18,20 @@ const navLinks = [
 const navActions = [
   {
     name: 'Twitter',
-    icon: <TwitterLogo />,
+    icon: <TwitterLogo size={24} />,
     path: 'https://twitter.com/eoisaacc',
   },
   {
     name: 'GitHub',
-    icon: <GithubLogo />,
+    icon: <GithubLogo size={24} />,
     path: 'https://gihub.com/eoisaac/readmefy',
   },
 ]
 
 export const Header = () => {
   const [displaySidebar, setDisplaySidebar] = useState(false)
+
+  const isMobile = window.matchMedia('(max-width: 640px)').matches
 
   const handleToggleSidebar = () => {
     setDisplaySidebar((prev) => !prev)
@@ -39,7 +41,7 @@ export const Header = () => {
     <header className="fixed inset-x-0 top-0 z-40 border-b-[1px] bg-slate-200">
       <div
         className="flex h-16 w-full flex-row-reverse justify-between
-      p-4 shadow-md sm:flex-row"
+      p-4 shadow-md sm:flex-row sm:px-8"
       >
         <Logo />
 
@@ -56,8 +58,8 @@ export const Header = () => {
             className={clsx(
               `fixed inset-0 top-16 z-30 flex max-h-screen max-w-[12rem]
               bg-slate-200 shadow-md transition-all duration-200
-              ease-linear sm:relative sm:inset-auto sm:bg-transparent
-              sm:shadow-none`,
+              ease-linear sm:relative sm:inset-auto sm:max-w-none
+              sm:bg-transparent sm:shadow-none`,
               {
                 'translate-x-0': displaySidebar,
                 '-translate-x-full sm:-translate-x-0': !displaySidebar,
@@ -65,21 +67,36 @@ export const Header = () => {
             )}
           >
             <div
-              className="flex flex-1 flex-col items-center p-4 sm:flex-row
-            sm:p-0"
+              className="flex flex-1 flex-col items-center justify-between p-4
+            sm:flex-row sm:gap-8 sm:p-0"
             >
-              <ul className="flex flex-col items-center gap-1 sm:flex-row">
+              <ul className="flex flex-col items-center gap-2 sm:flex-row">
                 {navLinks.map(({ name, path }) => (
                   <li key={name}>
-                    <NavLink to={path}>{name}</NavLink>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        clsx(`p-1`, {
+                          'text-sky-600': isActive,
+                        })
+                      }
+                      onClick={isMobile ? handleToggleSidebar : undefined}
+                    >
+                      {name}
+                    </NavLink>
                   </li>
                 ))}
               </ul>
 
-              <ul className="flex items-center gap-1 sm:flex-row">
+              <ul className="flex items-center gap-2 sm:flex-row">
                 {navActions.map(({ name, icon, path }) => (
                   <li key={name}>
-                    <a href={path} target="_blank" rel="noreferrer">
+                    <a
+                      href={path}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={isMobile ? handleToggleSidebar : undefined}
+                    >
                       <span>{icon}</span>
                     </a>
                   </li>

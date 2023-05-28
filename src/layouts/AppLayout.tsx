@@ -8,7 +8,6 @@ export const AppLayout = () => {
   overflow-x-hidden bg-green-300"
     >
       <Header />
-
       <Outlet />
     </div>
   )

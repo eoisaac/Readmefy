@@ -1,10 +1,13 @@
 import { FileText } from '@phosphor-icons/react'
+import { Link } from 'react-router-dom'
 
 export const Logo = () => {
   return (
-    <div className="flex items-center">
-      <FileText className="text-3xl text-sky-500" />
+    <Link to="/home" className="flex items-center">
+      <span className="text-3xl text-sky-500">
+        <FileText />
+      </span>
       <h1 className="text-xl font-bold text-slate-700 sm:text-2xl">Readmefy</h1>
-    </div>
+    </Link>
   )
 }

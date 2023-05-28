@@ -5,12 +5,12 @@
 @layer base {
   html,
   body {
-    @apply scroll-smooth bg-slate-50 font-sans font-normal text-slate-800 antialiased;
+    @apply scroll-smooth bg-slate-100 font-sans text-base font-normal text-slate-800 antialiased;
   }
 }
 
 @layer components {
   .page {
-    @apply min-h-screen w-full bg-slate-50 p-4 pt-16;
+    @apply min-h-screen w-full bg-slate-100 p-4 pt-20 sm:px-8;
   }
 }
