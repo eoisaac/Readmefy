@@ -1,5 +1,5 @@
-import "./styles/main.css";
+import './styles/main.css'
 
 export const App = () => {
-  return <></>;
-};
+  return <></>
+}
