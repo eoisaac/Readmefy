@@ -31,7 +31,7 @@ const navActions = [
 export const Header = () => {
   const [displaySidebar, setDisplaySidebar] = useState(false)
 
-  const isMobile = window.matchMedia('(max-width: 640px)').matches
+  const { matches: isMobile } = window.matchMedia('(max-width: 640px)')
 
   const handleToggleSidebar = () => {
     setDisplaySidebar((prev) => !prev)

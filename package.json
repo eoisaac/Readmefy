@@ -19,14 +19,18 @@
         ]
     },
     "dependencies": {
+        "@monaco-editor/react": "^4.5.1",
         "@phosphor-icons/react": "^2.0.9",
         "clsx": "^1.2.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router-dom": "^6.11.2"
+        "react-markdown": "^8.0.7",
+        "react-router-dom": "^6.11.2",
+        "remark-gfm": "^3.0.1"
     },
     "devDependencies": {
         "@rocketseat/eslint-config": "^1.2.0",
+        "@tailwindcss/typography": "^0.5.9",
         "@types/node": "^20.2.5",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
