@@ -13,6 +13,10 @@ const navLinks = [
     name: 'Editor',
     path: '/editor',
   },
+  {
+    name: 'Learn Markdown',
+    path: '/learn',
+  },
 ]
 
 const navActions = [
