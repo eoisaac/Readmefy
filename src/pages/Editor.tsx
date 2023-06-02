@@ -1,9 +1,8 @@
-import { Editor as MonacoEditor } from '@monaco-editor/react'
 import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Tabs'
+import { MarkdownEditor } from '@/components/MarkdownEditor'
+import { MarkdownPreview } from '@/components/MarkdownPreview'
+import { TemplatesList } from '@/components/TemplatesList'
 
 export const Editor = () => {
   const [content, setContent] = useState<string>('')
@@ -13,37 +12,15 @@ export const Editor = () => {
   }
 
   return (
-    <section className="page flex gap-8">
-      <Tabs defaultValue="editor" className="">
-        <TabsList>
-          <TabsTrigger value="editor">Editor</TabsTrigger>
-          <TabsTrigger value="preview">Preview</TabsTrigger>
-        </TabsList>
-        <TabsContent value="editor">
-          <MonacoEditor
-            aria-label="Editor"
-            height={700}
-            width={600}
-            onChange={handleEditorChange}
-            language="markdown"
-            theme="vs-dark"
-            options={{
-              minimap: {
-                enabled: false,
-              },
-              fontFamily: 'Fira Code',
-              language: 'markdown',
-              fontSize: 16,
-              wordWrap: 'on',
-            }}
-          />
-        </TabsContent>
-        <TabsContent value="preview">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} className="prose">
-            {content}
-          </ReactMarkdown>
-        </TabsContent>
-      </Tabs>
+    <section
+      className="page grid grid-cols-1 grid-rows-3 sm:grid-cols-3 
+    sm:grid-rows-1"
+    >
+      <TemplatesList />
+
+      <MarkdownEditor content={content} onChange={handleEditorChange} />
+
+      <MarkdownPreview content={content} />
     </section>
   )
 }
