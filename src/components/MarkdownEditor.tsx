@@ -1,39 +1,20 @@
-import { Editor as MonacoEditor } from '@monaco-editor/react'
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Tabs'
+import { ChangeEvent } from 'react'
 
 interface MarkdownEditorProps {
   content: string
-  onChange: (event: string | undefined) => void
+  onChange: (event: string) => void
 }
 
 export const MarkdownEditor = ({ content, onChange }: MarkdownEditorProps) => {
-  return (
-    <Tabs defaultValue="editor" className="flex-1">
-      <TabsList>
-        <TabsTrigger value="editor">Editor</TabsTrigger>
-      </TabsList>
+  const handleEditorChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    onChange(event.target.value)
+  }
 
-      <TabsContent value="editor">
-        <MonacoEditor
-          aria-label="Editor"
-          height={700}
-          width={600}
-          value={content}
-          language="markdown"
-          theme="vs-dark"
-          onChange={onChange}
-          options={{
-            minimap: {
-              enabled: false,
-            },
-            fontFamily: 'Fira Code',
-            language: 'markdown',
-            fontSize: 16,
-            wordWrap: 'on',
-          }}
-        />
-      </TabsContent>
-    </Tabs>
+  return (
+    <textarea
+      className="w-full resize-none p-1"
+      value={content}
+      onChange={handleEditorChange}
+    />
   )
 }

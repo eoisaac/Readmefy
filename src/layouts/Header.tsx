@@ -1,4 +1,5 @@
 import { Logo } from '@/components/Logo'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import { GithubLogo, List, TwitterLogo, X } from '@phosphor-icons/react'
 import clsx from 'clsx'
 import { useState } from 'react'
@@ -35,7 +36,7 @@ const navActions = [
 export const Header = () => {
   const [displaySidebar, setDisplaySidebar] = useState(false)
 
-  const { matches: isMobile } = window.matchMedia('(max-width: 640px)')
+  const { isMobile } = useIsMobile()
 
   const handleToggleSidebar = () => {
     setDisplaySidebar((prev) => !prev)

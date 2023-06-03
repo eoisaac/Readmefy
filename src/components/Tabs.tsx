@@ -28,7 +28,7 @@ const TabsTrigger = forwardRef<
     ref={ref}
     className={twMerge(
       `inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3
-       py-1.5 text-sm font-medium transition-all disabled:opacity-50
+      py-1.5 text-sm font-medium transition-all disabled:opacity-50
       data-[state=active]:bg-slate-300 data-[state=active]:text-slate-900
       data-[state=active]:shadow-sm`,
       className,
