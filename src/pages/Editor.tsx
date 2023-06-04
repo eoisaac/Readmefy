@@ -1,10 +1,9 @@
-import { useState } from 'react'
-
 import { MarkdownEditor } from '@/components/MarkdownEditor'
 import { MarkdownPreview } from '@/components/MarkdownPreview'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Tabs'
 import { TemplatesList } from '@/components/TemplatesList'
 import { useIsMobile } from '@/hooks/useIsMobile'
+import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -18,45 +17,46 @@ export const Editor = () => {
   }
 
   return (
-    <section
-      className="page row-span-3 grid grid-cols-1 gap-4 sm:row-span-1
-    sm:grid-cols-5"
-    >
-      <div className="col-span-1 sm:col-span-1">
-        <TemplatesList />
-      </div>
-
+    <section className="page">
       {isMobile ? (
-        <Tabs defaultValue="editor" className="col-span-1 row-span-2">
+        <Tabs defaultValue="editor">
           <TabsList>
+            <TabsTrigger value="templates">Templates</TabsTrigger>
             <TabsTrigger value="editor">Editor</TabsTrigger>
             <TabsTrigger value="preview">Preview</TabsTrigger>
             <TabsTrigger value="raw">Raw</TabsTrigger>
           </TabsList>
           <TabsContent value="editor">
             <MarkdownEditor content={content} onChange={handleEditorChange} />
-            <TabsContent value="preview">
-              <ReactMarkdown
-                className="prose prose-slate"
-                remarkPlugins={[remarkGfm]}
-                // components={{
-                //   code({ children }) {
-                //     return <CodeBlock content={String(children)} />
-                //   },
-                // }}
-              >
-                {content}
-              </ReactMarkdown>
-            </TabsContent>
+          </TabsContent>
 
-            <TabsContent value="raw">
-              <MarkdownPreview content={content} raw />
-            </TabsContent>
+          <TabsContent value="preview">
+            <ReactMarkdown
+              className="prose prose-slate"
+              remarkPlugins={[remarkGfm]}
+              // components={{
+              //   code({ children }) {
+              //     return <CodeBlock content={String(children)} />
+              //   },
+              // }}
+            >
+              {content}
+            </ReactMarkdown>
+          </TabsContent>
+
+          <TabsContent value="raw">
+            <MarkdownPreview content={content} raw />
           </TabsContent>
         </Tabs>
       ) : (
-        <>
-          <Tabs defaultValue="editor" className="col-span-1 sm:col-span-2">
+        <div
+          className="row-span-3 grid grid-cols-1 gap-4 md:row-span-1
+        md:grid-cols-5 md:gap-6 lg:gap-8"
+        >
+          <div className="col-span-1 md:col-span-1">
+            <TemplatesList />
+          </div>
+          <Tabs defaultValue="editor" className="col-span-1 md:col-span-2">
             <TabsList>
               <TabsTrigger value="editor">Editor</TabsTrigger>
             </TabsList>
@@ -66,7 +66,7 @@ export const Editor = () => {
             </TabsContent>
           </Tabs>
 
-          <Tabs defaultValue="preview" className="col-span-1sm:col-span-2">
+          <Tabs defaultValue="preview" className="col-span-1 md:col-span-2">
             <TabsList>
               <TabsTrigger value="preview">Preview</TabsTrigger>
               <TabsTrigger value="raw">Raw</TabsTrigger>
@@ -90,7 +90,7 @@ export const Editor = () => {
               <MarkdownPreview content={content} raw />
             </TabsContent>
           </Tabs>
-        </>
+        </div>
       )}
     </section>
   )
