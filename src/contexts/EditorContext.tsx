@@ -1,12 +1,33 @@
 import { Template } from '@/components/TemplateItem'
 import { en_US } from '@/data/templates/templates-en_US'
 import {
-  createContext,
+  addTemplateToLayoutAction,
+  resetLayoutAndTemplatesAction,
+  selectTemplateAction,
+  updateCurrentTemplateContentAction,
+  updateLayoutOrderAction,
+} from '@/reducers/EditorActions'
+import { EditorReducer } from '@/reducers/EditorReducer'
+import {
   ReactNode,
+  createContext,
   useContext,
   useEffect,
+  useReducer,
   useState,
 } from 'react'
+
+export interface EditorState {
+  layout: Template[]
+  templates: Template[]
+  currentTemplate: Template
+}
+
+const initialState: EditorState = {
+  layout: [en_US[0]],
+  templates: en_US.slice(1),
+  currentTemplate: en_US[0],
+}
 
 export interface EditorContextType {
   document: string
@@ -14,16 +35,16 @@ export interface EditorContextType {
   currentTemplate: Template
   templates: Template[]
 
-  addLayoutTemplate: (template: Template) => void
+  addTemplateToLayout: (template: Template) => void
   updateLayoutOrder: (updatedLayout: Template[]) => void
 
-  selectCurrentTemplate: (template: Template) => void
-  editTemplate: (markdown: string) => void
+  selectTemplate: (template: Template) => void
+  updateCurrentTemplateContent: (markdown: string) => void
 
   resetLayoutAndTemplates: () => void
 }
 
-interface EnvContextProviderProps {
+interface EditorContextProviderProps {
   children: ReactNode
 }
 
@@ -31,11 +52,11 @@ export const EditorContext = createContext({} as EditorContextType)
 
 export const EditorContextProvider = ({
   children,
-}: EnvContextProviderProps) => {
+}: EditorContextProviderProps) => {
+  const [state, dispatch] = useReducer(EditorReducer, initialState)
   const [document, setDocument] = useState<string>('')
-  const [templates, setTemplates] = useState<Template[]>(en_US.slice(1))
-  const [layout, setLayout] = useState<Template[]>([en_US[0]])
-  const [currentTemplate, setCurrentTemplate] = useState<Template>(en_US[0])
+
+  const { layout, templates, currentTemplate } = state
 
   useEffect(() => {
     const updatedLayoutContent = layout.map((item) => item.markdown).join('')
@@ -44,35 +65,24 @@ export const EditorContextProvider = ({
     return () => setDocument('')
   }, [layout])
 
-  const addLayoutTemplate = (template: Template) => {
-    setLayout([...layout, template])
-
-    const updatedTemplates = templates.filter((item) => item.id !== template.id)
-    setTemplates(updatedTemplates)
+  const addTemplateToLayout = (template: Template) => {
+    dispatch(addTemplateToLayoutAction(template))
   }
 
   const updateLayoutOrder = (updatedLayout: Template[]) => {
-    setLayout(updatedLayout)
+    dispatch(updateLayoutOrderAction(updatedLayout))
   }
 
-  const selectCurrentTemplate = (template: Template) => {
-    setCurrentTemplate(template)
+  const selectTemplate = (template: Template) => {
+    dispatch(selectTemplateAction(template))
   }
 
-  const editTemplate = (markdown: string) => {
-    const updatedTemplate = { ...currentTemplate, markdown }
-    setCurrentTemplate(updatedTemplate)
-
-    const updatedLayout = layout.map((item) =>
-      item.id === updatedTemplate.id ? updatedTemplate : item,
-    )
-    setLayout(updatedLayout)
+  const updateCurrentTemplateContent = (markdown: string) => {
+    dispatch(updateCurrentTemplateContentAction(markdown))
   }
 
   const resetLayoutAndTemplates = () => {
-    setLayout([en_US[0]])
-    setCurrentTemplate(en_US[0])
-    setTemplates(en_US.slice(1))
+    dispatch(resetLayoutAndTemplatesAction())
   }
 
   return (
@@ -83,11 +93,11 @@ export const EditorContextProvider = ({
         templates,
         currentTemplate,
 
-        addLayoutTemplate,
+        addTemplateToLayout,
         updateLayoutOrder,
 
-        selectCurrentTemplate,
-        editTemplate,
+        selectTemplate,
+        updateCurrentTemplateContent,
 
         resetLayoutAndTemplates,
       }}

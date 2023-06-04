@@ -18,8 +18,8 @@ export const LayoutEditor = ({ ...rest }: LayoutEditorProps) => {
     layout,
     templates,
     updateLayoutOrder,
-    selectCurrentTemplate,
-    addLayoutTemplate,
+    selectTemplate,
+    addTemplateToLayout,
     resetLayoutAndTemplates,
   } = useEditor()
 
@@ -77,7 +77,7 @@ export const LayoutEditor = ({ ...rest }: LayoutEditorProps) => {
                           label={item.label}
                           markdown={item.markdown}
                           provided={provided}
-                          onItemSelect={selectCurrentTemplate}
+                          onItemSelect={selectTemplate}
                         />
                       )}
                     </Draggable>
@@ -100,7 +100,7 @@ export const LayoutEditor = ({ ...rest }: LayoutEditorProps) => {
                 id={item.id}
                 label={item.label}
                 markdown={item.markdown}
-                onItemSelect={addLayoutTemplate}
+                onItemSelect={addTemplateToLayout}
               />
             ))}
           </ul>

@@ -8,7 +8,8 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 export const Editor = () => {
   const { isMobile } = useIsMobile()
 
-  const { document, currentTemplate, editTemplate } = useEditor()
+  const { document, currentTemplate, updateCurrentTemplateContent } =
+    useEditor()
 
   return (
     <section className="page flex">
@@ -28,7 +29,7 @@ export const Editor = () => {
           <TabsContent value="editor">
             <MarkdownEditor
               content={currentTemplate.markdown}
-              onEdit={editTemplate}
+              onEdit={updateCurrentTemplateContent}
             />
           </TabsContent>
 
@@ -55,7 +56,7 @@ export const Editor = () => {
             <TabsContent value="editor">
               <MarkdownEditor
                 content={currentTemplate.markdown}
-                onEdit={editTemplate}
+                onEdit={updateCurrentTemplateContent}
               />
             </TabsContent>
           </Tabs>
