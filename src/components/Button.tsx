@@ -2,6 +2,7 @@ import { IconContext } from '@phosphor-icons/react'
 import { Slot } from '@radix-ui/react-slot'
 import clsx from 'clsx'
 import { HTMLAttributes, forwardRef } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 const buttonSizes = {
   fit: 'leading-none text-base',
@@ -14,13 +15,13 @@ const buttonSizes = {
 } as const
 
 const buttonVariants = {
-  primary: `bg-sky-500 font-medium border-sky-600 hover:border-sky-700
-    hover:bg-sky-600 text-slate-50`,
+  primary: `bg-indigo-500 font-medium border-indigo-600 hover:border-indigo-700
+    hover:bg-indigo-600 text-slate-50`,
   secondary: `text-slate-600 font-medium border-slate-500 bg-slate-200
     hover:border-slate-600 hover:bg-slate-300`,
   tertiary: `text-gray11 font-medium border-transparent bg-transparent
     hover:border-gray8 hover:bg-gray5`,
-  link: `text-sky-500 font-normal border-transparent bg-transparent
+  link: `text-indigo-500 font-normal border-transparent bg-transparent
     hover:underline hover:text-blue9`,
   success: `text-emerald-100 font-medium border-emerald-600 bg-emerald-500
     hover:border-emerald-700 hover:bg-emerald-600`,
@@ -71,6 +72,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     ref,
   ) => {
+    const { className } = rest
     const Component = asChild ? Slot : 'button'
     const isDisabled = loading || disabled
 
@@ -87,16 +89,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           type={type}
           disabled={isDisabled}
           form={form}
-          className={clsx(
-            `flex cursor-pointer flex-row items-center justify-center gap-2
-            rounded-md border text-center leading-none transition-all
-            duration-200 ease-linear ${buttonSizes[size]}
-            ${buttonVariants[variant]}`,
-            { 'w-full': full },
-            { 'flex-row-reverse': reverse },
-            { 'cursor-wait opacity-70': loading },
-            { 'cursor-not-allowed opacity-70': disabled },
-            { 'border-transparent hover:border-transparent': !border },
+          className={twMerge(
+            clsx(
+              `flex cursor-pointer flex-row items-center justify-center gap-2
+              rounded-md border text-center leading-none transition-all
+              duration-200 ease-linear ${buttonSizes[size]}
+              ${buttonVariants[variant]}`,
+              { 'w-full': full },
+              { 'flex-row-reverse': reverse },
+              { 'cursor-wait opacity-70': loading },
+              { 'cursor-not-allowed opacity-70': disabled },
+              { 'border-transparent hover:border-transparent': !border },
+            ),
+            className,
           )}
         >
           {asChild ? (

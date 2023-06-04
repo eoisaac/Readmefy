@@ -1,3 +1,4 @@
+import { Button } from '@/components/Button'
 import { Logo } from '@/components/Logo'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { GithubLogo, List, TwitterLogo, X } from '@phosphor-icons/react'
@@ -51,13 +52,16 @@ export const Header = () => {
         <Logo />
 
         <nav className="relative flex">
-          <button
-            className="relative z-50 sm:hidden"
+          <Button
+            label={displaySidebar ? 'Close menu' : 'Open Menu'}
             title={displaySidebar ? 'Close menu' : 'Open Menu'}
+            icon={displaySidebar ? <X size={24} /> : <List size={24} />}
             onClick={handleToggleSidebar}
-          >
-            {displaySidebar ? <X size={24} /> : <List size={24} />}
-          </button>
+            variant="secondary"
+            size="fit"
+            className="relative z-50 sm:hidden"
+            srLabel
+          />
 
           <div
             className={clsx(
@@ -75,14 +79,14 @@ export const Header = () => {
               className="flex flex-1 flex-col items-center justify-between p-4
             sm:flex-row sm:gap-8 sm:p-0"
             >
-              <ul className="flex flex-col items-center gap-2 sm:flex-row">
+              <ul className="flex flex-col items-center gap-4 sm:flex-row">
                 {navLinks.map(({ name, path }) => (
                   <li key={name}>
                     <NavLink
                       to={path}
                       className={({ isActive }) =>
                         clsx(`p-1`, {
-                          'text-sky-600': isActive,
+                          'text-indigo-600': isActive,
                         })
                       }
                       onClick={isMobile ? handleToggleSidebar : undefined}
@@ -93,7 +97,7 @@ export const Header = () => {
                 ))}
               </ul>
 
-              <ul className="flex items-center gap-2 sm:flex-row">
+              <ul className="flex items-center gap-4 sm:flex-row">
                 {navActions.map(({ name, icon, path }) => (
                   <li key={name}>
                     <a

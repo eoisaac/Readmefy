@@ -11,10 +11,10 @@ export const MarkdownPreview = ({
   raw = false,
 }: MarkdownPreviewProps) => {
   return raw ? (
-    <pre className="flex-1">{content}</pre>
+    <pre className="flex-1 rounded-md bg-slate-200">{content}</pre>
   ) : (
     <ReactMarkdown
-      className="prose prose-slate whitespace-pre-wrap"
+      className="prose prose-slate whitespace-pre-wrap rounded-md bg-slate-200"
       remarkPlugins={[remarkGfm]}
       // components={{
       //   code({ children }) {

@@ -7,6 +7,26 @@
   body {
     @apply scroll-smooth bg-slate-100 font-sans text-base font-normal text-slate-800 antialiased;
   }
+
+  .hidden-scrollbar::-webkit-scrollbar {
+    @apply h-0 w-0;
+  }
+
+  ::selection {
+    @apply bg-indigo-500 text-slate-100;
+  }
+
+  :focus {
+    @apply rounded-md ring-2 ring-indigo-500;
+  }
+
+  ::-webkit-scrollbar {
+    @apply h-1 w-1 bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-sm bg-slate-300;
+  }
 }
 
 @layer components {
