@@ -3,21 +3,25 @@ import { MarkdownEditor } from '@/components/MarkdownEditor'
 import { MarkdownPreview } from '@/components/MarkdownPreview'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Tabs'
 import { useIsMobile } from '@/hooks/useIsMobile'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const Editor = () => {
   const { isMobile } = useIsMobile()
 
   const [layout, setLayout] = useState<string>('')
-  const [content, setContent] = useState<string>('')
+  const [section, setContent] = useState<string>('')
 
   const handleLayoutChange = (layout: string) => {
     setLayout(layout)
   }
 
-  const handleContentChange = (content: string) => {
-    setContent(content)
+  const handleSectionChange = (section: string) => {
+    setContent(section)
   }
+
+  useEffect(() => {
+    console.log('section', section)
+  }, [section])
 
   return (
     <section className="page flex">
@@ -32,24 +36,25 @@ export const Editor = () => {
 
           <TabsContent value="layout" className="flex-1">
             <LayoutEditor
-              onLayoutChange={handleLayoutChange}
               className="h-full"
+              onLayoutChange={handleLayoutChange}
+              onSelectSection={handleSectionChange}
             />
           </TabsContent>
 
           <TabsContent value="editor">
             <MarkdownEditor
-              content={layout}
-              onContentChange={handleContentChange}
+              content={section}
+              onContentChange={handleSectionChange}
             />
           </TabsContent>
 
           <TabsContent value="preview">
-            <MarkdownPreview content={content} />
+            <MarkdownPreview content={layout} />
           </TabsContent>
 
           <TabsContent value="raw">
-            <MarkdownPreview content={content} raw />
+            <MarkdownPreview content={layout} raw />
           </TabsContent>
         </Tabs>
       ) : (
@@ -69,8 +74,8 @@ export const Editor = () => {
 
             <TabsContent value="editor">
               <MarkdownEditor
-                content={layout}
-                onContentChange={handleContentChange}
+                content={section}
+                onContentChange={handleSectionChange}
               />
             </TabsContent>
           </Tabs>
@@ -82,11 +87,11 @@ export const Editor = () => {
             </TabsList>
 
             <TabsContent value="preview">
-              <MarkdownPreview content={content} />
+              <MarkdownPreview content={layout} />
             </TabsContent>
 
             <TabsContent value="raw">
-              <MarkdownPreview content={content} raw />
+              <MarkdownPreview content={layout} raw />
             </TabsContent>
           </Tabs>
         </div>

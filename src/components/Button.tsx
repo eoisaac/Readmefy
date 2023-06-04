@@ -91,7 +91,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           form={form}
           className={twMerge(
             clsx(
-              `flex cursor-pointer flex-row items-center justify-center gap-2
+              `flex cursor-pointer flex-row items-center justify-center gap-1
               rounded-md border text-center leading-none transition-all
               duration-200 ease-linear ${buttonSizes[size]}
               ${buttonVariants[variant]}`,

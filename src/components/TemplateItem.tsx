@@ -2,23 +2,30 @@ import { HTMLAttributes, forwardRef } from 'react'
 import { DraggableProvided } from 'react-beautiful-dnd'
 import { twMerge } from 'tailwind-merge'
 
+export interface Template {
+  id: string
+  label: string
+  markdown: string
+}
+
 interface TemplateItemProps extends HTMLAttributes<HTMLLIElement> {
   id: string
   label: string
   markdown: string
   provided?: DraggableProvided
-  onSelected?: (item: TemplateItemProps) => void
+  onItemSelect?: (item: Template) => void
 }
 
 export const TemplateItem = forwardRef<HTMLLIElement, TemplateItemProps>(
   (
-    { id, label, markdown, provided, onSelected, ...rest }: TemplateItemProps,
+    { id, label, markdown, provided, onItemSelect, ...rest }: TemplateItemProps,
     ref,
   ) => {
     const { className } = rest
 
-    const handleOnSelected = () => {
-      onSelected && onSelected({ id, label, markdown })
+    const handleOnSelect = () => {
+      onItemSelect && onItemSelect({ id, label, markdown })
+      onItemSelect && console.log('From item', { id, label, markdown })
     }
 
     return (
@@ -32,11 +39,11 @@ export const TemplateItem = forwardRef<HTMLLIElement, TemplateItemProps>(
       >
         <button
           className={twMerge(
-            `w-full rounded-md bg-slate-200 px-4 py-2
+            `rounded-md bg-slate-200 px-4 py-2
             text-left`,
             className,
           )}
-          onClick={handleOnSelected}
+          onClick={handleOnSelect}
         >
           {label}
         </button>
