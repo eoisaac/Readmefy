@@ -25,7 +25,6 @@ export const TemplateItem = forwardRef<HTMLLIElement, TemplateItemProps>(
 
     const handleOnSelect = () => {
       onItemSelect && onItemSelect({ id, label, markdown })
-      onItemSelect && console.log('From item', { id, label, markdown })
     }
 
     return (

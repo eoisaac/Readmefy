@@ -11,16 +11,16 @@ import {
 export interface EditorContextType {
   document: string
   layout: Template[]
-  currentTemplate: Template | null
+  currentTemplate: Template
   templates: Template[]
 
-  handleSelectCurrentTemplate: (item: Template) => void
-  handleSelectTemplate: (item: Template) => void
-  handleRemoveTemplate: (itemId: string) => void
+  addLayoutTemplate: (template: Template) => void
+  updateLayoutOrder: (updatedLayout: Template[]) => void
 
-  handleResetLayout: () => void
-  handleResetTemplates: () => void
-  handleResetAll: () => void
+  selectCurrentTemplate: (template: Template) => void
+  editTemplate: (markdown: string) => void
+
+  resetLayoutAndTemplates: () => void
 }
 
 interface EnvContextProviderProps {
@@ -33,9 +33,9 @@ export const EditorContextProvider = ({
   children,
 }: EnvContextProviderProps) => {
   const [document, setDocument] = useState<string>('')
-  const [layout, setLayout] = useState<Template[]>([])
-  const [templates, setTemplates] = useState<Template[]>(en_US)
-  const [currentTemplate, setCurrentTemplate] = useState<Template | null>(null)
+  const [templates, setTemplates] = useState<Template[]>(en_US.slice(1))
+  const [layout, setLayout] = useState<Template[]>([en_US[0]])
+  const [currentTemplate, setCurrentTemplate] = useState<Template>(en_US[0])
 
   useEffect(() => {
     const updatedLayoutContent = layout.map((item) => item.markdown).join('')
@@ -44,33 +44,35 @@ export const EditorContextProvider = ({
     return () => setDocument('')
   }, [layout])
 
-  const handleSelectCurrentTemplate = (item: Template) => {
-    setCurrentTemplate(item)
+  const addLayoutTemplate = (template: Template) => {
+    setLayout([...layout, template])
+
+    const updatedTemplates = templates.filter((item) => item.id !== template.id)
+    setTemplates(updatedTemplates)
   }
 
-  const handleSelectTemplate = (item: Template) => {
-    const updatedSelectedItems = [...layout, item]
-    setLayout(updatedSelectedItems)
-
-    handleSelectCurrentTemplate(item)
+  const updateLayoutOrder = (updatedLayout: Template[]) => {
+    setLayout(updatedLayout)
   }
 
-  const handleRemoveTemplate = (itemId: string) => {
-    const updatedItems = layout.filter((i) => i.id !== itemId)
-    setLayout(updatedItems)
+  const selectCurrentTemplate = (template: Template) => {
+    setCurrentTemplate(template)
   }
 
-  const handleResetLayout = () => {
-    setLayout([])
+  const editTemplate = (markdown: string) => {
+    const updatedTemplate = { ...currentTemplate, markdown }
+    setCurrentTemplate(updatedTemplate)
+
+    const updatedLayout = layout.map((item) =>
+      item.id === updatedTemplate.id ? updatedTemplate : item,
+    )
+    setLayout(updatedLayout)
   }
 
-  const handleResetTemplates = () => {
-    setTemplates(en_US)
-  }
-
-  const handleResetAll = () => {
-    handleResetLayout()
-    handleResetTemplates()
+  const resetLayoutAndTemplates = () => {
+    setLayout([en_US[0]])
+    setCurrentTemplate(en_US[0])
+    setTemplates(en_US.slice(1))
   }
 
   return (
@@ -80,13 +82,14 @@ export const EditorContextProvider = ({
         layout,
         templates,
         currentTemplate,
-        handleSelectCurrentTemplate,
-        handleSelectTemplate,
-        handleRemoveTemplate,
 
-        handleResetLayout,
-        handleResetTemplates,
-        handleResetAll,
+        addLayoutTemplate,
+        updateLayoutOrder,
+
+        selectCurrentTemplate,
+        editTemplate,
+
+        resetLayoutAndTemplates,
       }}
     >
       {children}

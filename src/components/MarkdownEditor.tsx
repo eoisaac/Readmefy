@@ -1,23 +1,23 @@
 import { ChangeEvent } from 'react'
 
 interface MarkdownEditorProps {
-  content: string
-  onContentChange: (event: string) => void
+  content: string | null
+  onEdit: (event: string) => void
 }
 
 export const MarkdownEditor = ({
-  content,
-  onContentChange,
+  content = '',
+  onEdit,
 }: MarkdownEditorProps) => {
   const handleEditorChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    onContentChange(event.target.value)
+    onEdit(event.target.value)
   }
 
   return (
     <textarea
       className="w-full flex-1 resize-none rounded-md bg-slate-200 p-1"
       rows={32}
-      value={content}
+      value={content || ''}
       onChange={handleEditorChange}
     />
   )

@@ -1,6 +1,6 @@
-import { en_US } from '@/data/templates/templates-en_US'
+import { useEditor } from '@/contexts/EditorContext'
 import { ArrowCounterClockwise } from '@phosphor-icons/react'
-import { HTMLAttributes, useEffect, useState } from 'react'
+import { HTMLAttributes } from 'react'
 import {
   DragDropContext,
   Draggable,
@@ -9,60 +9,29 @@ import {
 } from 'react-beautiful-dnd'
 import { twMerge } from 'tailwind-merge'
 import { Button } from './Button'
-import { Template, TemplateItem } from './TemplateItem'
+import { TemplateItem } from './TemplateItem'
 
-interface LayoutEditorProps extends HTMLAttributes<HTMLUListElement> {
-  onLayoutChange: (updatedLayoutContent: string) => void
-  onSelectSection?: (sectionContent: string) => void
-}
+type LayoutEditorProps = HTMLAttributes<HTMLUListElement>
 
-export const LayoutEditor = ({
-  onLayoutChange,
-  onSelectSection,
-  ...rest
-}: LayoutEditorProps) => {
-  const [layoutItems, setLayoutItems] = useState<Template[]>([])
-  const [sectionItems, setSectionItems] = useState<Template[]>(en_US)
+export const LayoutEditor = ({ ...rest }: LayoutEditorProps) => {
+  const {
+    layout,
+    templates,
+    updateLayoutOrder,
+    selectCurrentTemplate,
+    addLayoutTemplate,
+    resetLayoutAndTemplates,
+  } = useEditor()
 
   const { className } = rest
 
-  useEffect(() => {
-    const updatedLayoutContent = layoutItems
-      .map((item) => item.markdown)
-      .join('')
-    onLayoutChange(updatedLayoutContent)
-
-    return () => onLayoutChange('')
-  }, [layoutItems, onLayoutChange])
-
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return
-    const updatedItems = [...layoutItems]
+    const updatedItems = [...layout]
     const [movedItem] = updatedItems.splice(result.source.index, 1)
     updatedItems.splice(result.destination.index, 0, movedItem)
 
-    setLayoutItems(updatedItems)
-  }
-
-  const handleRemoveSectionItem = (item: Template) => {
-    const updatedItems = sectionItems.filter((i) => i.id !== item.id)
-    setSectionItems(updatedItems)
-  }
-
-  const handleSelectSectionItem = (item: Template) => {
-    const updatedSelectedItems = [...layoutItems, item]
-    setLayoutItems(updatedSelectedItems)
-    handleRemoveSectionItem(item)
-  }
-
-  const handleSelectLayoutItem = (item: Template) => {
-    onSelectSection && console.log('From item', item)
-    onSelectSection && onSelectSection(item.markdown)
-  }
-
-  const handleResetAllItems = () => {
-    setLayoutItems([])
-    setSectionItems(en_US)
+    updateLayoutOrder(updatedItems)
   }
 
   return (
@@ -83,7 +52,7 @@ export const LayoutEditor = ({
               icon={<ArrowCounterClockwise size={18} />}
               variant="link"
               size="fit"
-              onClick={handleResetAllItems}
+              onClick={resetLayoutAndTemplates}
             />
           </header>
           <DragDropContext onDragEnd={handleDragEnd}>
@@ -95,7 +64,7 @@ export const LayoutEditor = ({
                   {...rest}
                   className="m-1 flex flex-col items-stretch gap-2"
                 >
-                  {layoutItems.map((item, index) => (
+                  {layout.map((item, index) => (
                     <Draggable
                       key={item.id}
                       draggableId={item.id}
@@ -108,7 +77,7 @@ export const LayoutEditor = ({
                           label={item.label}
                           markdown={item.markdown}
                           provided={provided}
-                          onItemSelect={handleSelectLayoutItem}
+                          onItemSelect={selectCurrentTemplate}
                         />
                       )}
                     </Draggable>
@@ -125,13 +94,13 @@ export const LayoutEditor = ({
             <h3 className="font-medium">Sections</h3>
           </header>
           <ul className="m-1 flex flex-col items-stretch gap-2">
-            {sectionItems.map((item) => (
+            {templates.map((item) => (
               <TemplateItem
                 key={item.id}
                 id={item.id}
                 label={item.label}
                 markdown={item.markdown}
-                onItemSelect={handleSelectSectionItem}
+                onItemSelect={addLayoutTemplate}
               />
             ))}
           </ul>
