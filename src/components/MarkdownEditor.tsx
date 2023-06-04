@@ -12,7 +12,8 @@ export const MarkdownEditor = ({ content, onChange }: MarkdownEditorProps) => {
 
   return (
     <textarea
-      className="w-full resize-none p-1"
+      className="w-full flex-1 resize-none p-1"
+      rows={30}
       value={content}
       onChange={handleEditorChange}
     />

@@ -4,8 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Tabs'
 import { TemplatesList } from '@/components/TemplatesList'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 
 export const Editor = () => {
   const { isMobile } = useIsMobile()
@@ -26,22 +24,16 @@ export const Editor = () => {
             <TabsTrigger value="preview">Preview</TabsTrigger>
             <TabsTrigger value="raw">Raw</TabsTrigger>
           </TabsList>
+          <TabsContent value="templates">
+            <TemplatesList />
+          </TabsContent>
+
           <TabsContent value="editor">
             <MarkdownEditor content={content} onChange={handleEditorChange} />
           </TabsContent>
 
           <TabsContent value="preview">
-            <ReactMarkdown
-              className="prose prose-slate"
-              remarkPlugins={[remarkGfm]}
-              // components={{
-              //   code({ children }) {
-              //     return <CodeBlock content={String(children)} />
-              //   },
-              // }}
-            >
-              {content}
-            </ReactMarkdown>
+            <MarkdownPreview content={content} />
           </TabsContent>
 
           <TabsContent value="raw">
@@ -73,17 +65,7 @@ export const Editor = () => {
             </TabsList>
 
             <TabsContent value="preview">
-              <ReactMarkdown
-                className="prose prose-slate"
-                remarkPlugins={[remarkGfm]}
-                // components={{
-                //   code({ children }) {
-                //     return <CodeBlock content={String(children)} />
-                //   },
-                // }}
-              >
-                {content}
-              </ReactMarkdown>
+              <MarkdownPreview content={content} />
             </TabsContent>
 
             <TabsContent value="raw">

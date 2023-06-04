@@ -14,7 +14,7 @@ export const MarkdownPreview = ({
     <pre className="flex-1">{content}</pre>
   ) : (
     <ReactMarkdown
-      className="prose prose-slate"
+      className="prose prose-slate whitespace-pre-wrap"
       remarkPlugins={[remarkGfm]}
       // components={{
       //   code({ children }) {

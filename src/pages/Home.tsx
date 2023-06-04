@@ -1,3 +1,4 @@
+import { Button } from '@/components/Button'
 import { CaretRight } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
 
@@ -21,17 +22,12 @@ export const Home = () => {
           </p>
         </div>
 
-        <Link
-          to="/editor"
-          className="flex items-center gap-1 rounded-md bg-sky-500 px-4 py-2
-          font-medium text-slate-50 transition-all duration-200 ease-linear
-          hover:bg-sky-600"
-        >
-          <span>Go to editor</span>
-          <span>
+        <Button icon={<CaretRight weight="bold" />} asChild>
+          <Link to="/editor">
+            Go to editor
             <CaretRight weight="bold" />
-          </span>
-        </Link>
+          </Link>
+        </Button>
 
         <img src="./home.png" alt="" className="w-full max-w-sm" />
       </div>
