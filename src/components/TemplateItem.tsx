@@ -13,7 +13,7 @@ interface TemplateItemProps extends HTMLAttributes<HTMLLIElement> {
   label: string
   markdown: string
   provided?: DraggableProvided
-  onItemSelect?: (item: Template) => void
+  onItemSelect: (item: Template) => void
 }
 
 export const TemplateItem = forwardRef<HTMLLIElement, TemplateItemProps>(
@@ -24,7 +24,7 @@ export const TemplateItem = forwardRef<HTMLLIElement, TemplateItemProps>(
     const { className } = rest
 
     const handleOnSelect = () => {
-      onItemSelect && onItemSelect({ id, label, markdown })
+      onItemSelect({ id, label, markdown })
     }
 
     return (

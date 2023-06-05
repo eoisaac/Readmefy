@@ -1,14 +1,16 @@
-/* eslint-disable no-case-declarations */
+import { defaultState } from '@/constants/editorDefaultState'
 import { EditorState } from '@/contexts/EditorContext'
 import { ActionType, EditorActionTypes } from './EditorActions'
 
 export const EditorReducer = (state: EditorState, action: ActionType) => {
   switch (action.type) {
     case EditorActionTypes.ADD_TEMPLATE_TO_LAYOUT:
-      const { template } = action.payload
       return {
         ...state,
-        layout: [...state.layout, template],
+        templates: state.templates.filter(
+          (item) => item.id !== action.payload.template.id,
+        ),
+        layout: [...state.layout, action.payload.template],
       }
 
     case EditorActionTypes.UPDATE_LAYOUT_ORDER:
@@ -38,11 +40,7 @@ export const EditorReducer = (state: EditorState, action: ActionType) => {
       }
 
     case EditorActionTypes.RESET_LAYOUT_AND_TEMPLATES:
-      return {
-        layout: [state.templates[0]],
-        currentTemplate: state.templates[0],
-        templates: state.templates.slice(1),
-      }
+      return defaultState
 
     default:
       return state

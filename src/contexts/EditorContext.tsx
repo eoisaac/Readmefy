@@ -1,5 +1,5 @@
 import { Template } from '@/components/TemplateItem'
-import { en_US } from '@/data/templates/templates-en_US'
+import { defaultState } from '@/constants/editorDefaultState'
 import {
   ActionType,
   addTemplateToLayoutAction,
@@ -23,12 +23,6 @@ export interface EditorState {
   layout: Template[]
   templates: Template[]
   currentTemplate: Template
-}
-
-const initialState: EditorState = {
-  layout: [en_US[0]],
-  templates: en_US.slice(1),
-  currentTemplate: en_US[0],
 }
 
 export interface EditorContextType {
@@ -57,7 +51,7 @@ export const EditorContextProvider = ({
 }: EditorContextProviderProps) => {
   const [state, dispatch] = useReducer<Reducer<EditorState, ActionType>>(
     EditorReducer,
-    initialState,
+    defaultState,
   )
   const [document, setDocument] = useState<string>('')
 
