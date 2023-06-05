@@ -1,6 +1,7 @@
 import { Template } from '@/components/TemplateItem'
 import { en_US } from '@/data/templates/templates-en_US'
 import {
+  ActionType,
   addTemplateToLayoutAction,
   resetLayoutAndTemplatesAction,
   selectTemplateAction,
@@ -10,6 +11,7 @@ import {
 import { EditorReducer } from '@/reducers/EditorReducer'
 import {
   ReactNode,
+  Reducer,
   createContext,
   useContext,
   useEffect,
@@ -53,7 +55,10 @@ export const EditorContext = createContext({} as EditorContextType)
 export const EditorContextProvider = ({
   children,
 }: EditorContextProviderProps) => {
-  const [state, dispatch] = useReducer(EditorReducer, initialState)
+  const [state, dispatch] = useReducer<Reducer<EditorState, ActionType>>(
+    EditorReducer,
+    initialState,
+  )
   const [document, setDocument] = useState<string>('')
 
   const { layout, templates, currentTemplate } = state

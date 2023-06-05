@@ -1,4 +1,6 @@
-export const en_US = [
+import { Template } from '@/components/TemplateItem'
+
+export const en_US: Template[] = [
   {
     id: 'title-and-description',
     label: 'Title and Description',
