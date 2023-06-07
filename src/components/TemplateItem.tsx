@@ -38,8 +38,7 @@ export const TemplateItem = forwardRef<HTMLLIElement, TemplateItemProps>(
       >
         <button
           className={twMerge(
-            `rounded-md bg-slate-200 px-4 py-2
-            text-left`,
+            `w-full rounded-md bg-slate-200 px-4 py-2 text-left`,
             className,
           )}
           onClick={handleOnSelect}

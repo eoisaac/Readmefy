@@ -2,6 +2,7 @@ import { LayoutEditor } from '@/components/LayoutEditor'
 import { MarkdownEditor } from '@/components/MarkdownEditor'
 import { MarkdownPreview } from '@/components/MarkdownPreview'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Tabs'
+import { TemplatesList } from '@/components/TemplatesList'
 import { useEditor } from '@/contexts/EditorContext'
 import { useIsMobile } from '@/hooks/useIsMobile'
 
@@ -15,15 +16,20 @@ export const Editor = () => {
     <section className="page flex">
       {isMobile ? (
         <Tabs defaultValue="editor" className="flex flex-1 flex-col">
-          <TabsList className="self-start">
+          <TabsList>
+            <TabsTrigger value="templates">Templates</TabsTrigger>
             <TabsTrigger value="layout">Layout</TabsTrigger>
             <TabsTrigger value="editor">Editor</TabsTrigger>
             <TabsTrigger value="preview">Preview</TabsTrigger>
             <TabsTrigger value="raw">Raw</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="layout" className="flex-1">
-            <LayoutEditor className="h-full" />
+          <TabsContent value="templates" className="relative">
+            <TemplatesList />
+          </TabsContent>
+
+          <TabsContent value="layout" className="relative">
+            <LayoutEditor />
           </TabsContent>
 
           <TabsContent value="editor">
@@ -46,7 +52,20 @@ export const Editor = () => {
           className="row-span-3 grid flex-1 grid-cols-1 gap-4 md:row-span-1 
         md:grid-cols-5 md:gap-6 lg:gap-8"
         >
-          <LayoutEditor className="col-span-1 md:col-span-1" />
+          <Tabs defaultValue="templates" className="col-span-1 md:col-span-1">
+            <TabsList>
+              <TabsTrigger value="templates">Templates</TabsTrigger>
+              <TabsTrigger value="layout">Layout</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="templates" className="relative">
+              <TemplatesList />
+            </TabsContent>
+
+            <TabsContent value="layout" className="relative">
+              <LayoutEditor />
+            </TabsContent>
+          </Tabs>
 
           <Tabs defaultValue="editor" className="col-span-1 md:col-span-2">
             <TabsList>
