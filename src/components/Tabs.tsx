@@ -22,7 +22,7 @@ const TabsList = forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={twMerge(
-      `min-h-10 flex flex-wrap items-center justify-start
+      `min-h-10 flex flex-wrap items-center justify-center
       rounded-md bg-slate-200 p-1 text-slate-600`,
       className,
     )}

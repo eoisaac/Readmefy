@@ -7,7 +7,10 @@ export const TemplatesList = () => {
   return (
     <section className="absolute inset-0 flex overflow-auto">
       <h3 className="sr-only">Templates List</h3>
-      <ul className="flex-1 space-y-2 p-[2px] pr-1">
+      <ul
+        className="flex-1 space-y-2 p-[2px] pr-1 transition-all duration-200
+      ease-linear"
+      >
         {templates.map((item) => (
           <TemplateItem
             key={item.id}

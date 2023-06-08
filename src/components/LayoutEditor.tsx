@@ -32,7 +32,8 @@ export const LayoutEditor = ({ ...rest }: LayoutEditorProps) => {
               ref={provided.innerRef}
               {...provided.droppableProps}
               {...rest}
-              className="flex-1 space-y-2 p-[2px] pr-1"
+              className="flex-1 space-y-2 p-[2px] pr-1 transition-all 
+              duration-200 ease-linear"
             >
               {layout.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
