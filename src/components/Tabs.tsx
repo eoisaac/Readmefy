@@ -55,7 +55,7 @@ const TabsContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
-    className={twMerge(`mt-2 flex-1 self-stretch`, className)}
+    className={twMerge(`relative mt-2 flex-1 self-stretch`, className)}
     {...props}
   />
 ))

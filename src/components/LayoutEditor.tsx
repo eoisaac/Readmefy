@@ -24,6 +24,7 @@ export const LayoutEditor = ({ ...rest }: LayoutEditorProps) => {
 
   return (
     <section className="absolute inset-0 flex overflow-auto">
+      <h3 className="sr-only">Layout Editor</h3>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="list">
           {(provided) => (
@@ -31,7 +32,7 @@ export const LayoutEditor = ({ ...rest }: LayoutEditorProps) => {
               ref={provided.innerRef}
               {...provided.droppableProps}
               {...rest}
-              className="flex-1 space-y-2"
+              className="flex-1 space-y-2 p-[2px] pr-1"
             >
               {layout.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>

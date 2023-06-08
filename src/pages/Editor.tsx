@@ -24,11 +24,11 @@ export const Editor = () => {
             <TabsTrigger value="raw">Raw</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="templates" className="relative">
+          <TabsContent value="templates">
             <TemplatesList />
           </TabsContent>
 
-          <TabsContent value="layout" className="relative">
+          <TabsContent value="layout">
             <LayoutEditor />
           </TabsContent>
 
@@ -58,11 +58,11 @@ export const Editor = () => {
               <TabsTrigger value="layout">Layout</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="templates" className="relative">
+            <TabsContent value="templates">
               <TemplatesList />
             </TabsContent>
 
-            <TabsContent value="layout" className="relative">
+            <TabsContent value="layout">
               <LayoutEditor />
             </TabsContent>
           </Tabs>

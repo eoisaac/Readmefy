@@ -10,19 +10,34 @@ export const MarkdownPreview = ({
   content,
   raw = false,
 }: MarkdownPreviewProps) => {
-  return raw ? (
-    <pre className="flex-1 rounded-md bg-slate-200">{content}</pre>
-  ) : (
-    <ReactMarkdown
-      className="prose prose-slate whitespace-pre-wrap rounded-md bg-slate-200"
-      remarkPlugins={[remarkGfm]}
-      // components={{
-      //   code({ children }) {
-      //     return <CodeBlock content={String(children)} />
-      //   },
-      // }}
+  return (
+    <section
+      className="absolute inset-0 flex overflow-y-auto rounded-md 
+    bg-slate-200"
     >
-      {content}
-    </ReactMarkdown>
+      {raw ? (
+        <>
+          <h3 className="sr-only">Markdown Raw Preview</h3>
+          <pre className="flex-1 break-words rounded-md bg-slate-200 p-2">
+            {content}
+          </pre>
+        </>
+      ) : (
+        <>
+          <h3 className="sr-only">Markdown Formatted Preview</h3>
+          <ReactMarkdown
+            className="prose prose-slate flex-1 break-words rounded-md p-2"
+            remarkPlugins={[remarkGfm]}
+            // components={{
+            //   code({ children }) {
+            //     return <CodeBlock content={String(children)} />
+            //   },
+            // }}
+          >
+            {content}
+          </ReactMarkdown>
+        </>
+      )}
+    </section>
   )
 }

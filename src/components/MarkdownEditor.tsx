@@ -14,11 +14,14 @@ export const MarkdownEditor = ({
   }
 
   return (
-    <textarea
-      className="w-full flex-1 resize-none rounded-md bg-slate-200 p-1"
-      rows={32}
-      value={content || ''}
-      onChange={handleEditorChange}
-    />
+    <section className="absolute inset-0 flex overflow-y-auto rounded-md">
+      <h3 className="sr-only">Markdown Editor</h3>
+      <textarea
+        className="m-[2px] flex-1 resize-none rounded-md
+        bg-slate-200 p-2 focus:outline-none"
+        value={content || ''}
+        onChange={handleEditorChange}
+      />
+    </section>
   )
 }
