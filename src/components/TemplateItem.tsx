@@ -63,7 +63,6 @@ export const TemplateItem = forwardRef<HTMLLIElement, TemplateItemProps>(
             <Button
               label="Reset current template"
               icon={<ArrowCounterClockwise />}
-              variant="primary"
               size="xxs"
               onClick={handleResetTemplate}
               srLabel
@@ -71,7 +70,6 @@ export const TemplateItem = forwardRef<HTMLLIElement, TemplateItemProps>(
             <Button
               label="Delete current template"
               icon={<Trash />}
-              variant="primary"
               size="xxs"
               onClick={handleDeleteTemplate}
               srLabel
